@@ -58,7 +58,7 @@ def skin_resistance(freq, rho, diam):
   @param diam : diameter, m
   @type  diam : float
   
-  @return ohm/m
+  @return: ohm/m
   """
   omega = 2*pi*freq
   delta = skin_depth(omega, rho)

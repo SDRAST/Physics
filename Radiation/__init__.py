@@ -1,7 +1,10 @@
-"""module Radiation
+"""
+module Radiation
+
 This module contains functions related to emission mechanisms. 
 This module also defines the physical quantity for jansky and has some
-handy conversions."""
+handy conversions.
+"""
 
 import Physics as P
 import math as m
@@ -18,55 +21,148 @@ MHz2invCm = (P.pq(1e6,'Hz')/P.pq(1,'c')).inUnitsOf('1/cm').value
 K_per_inv_cm = \
  (P.pq(1,'hplanck')*P.pq(1,'c')/P.pq(1,'k')).inUnitsOf('K*cm').value
 
-def E_upper(E_lower,freq):
-  """Given the lower state energy in 1/cm and the transition frequency
-  in MHz, this returns the upper state energy in 1/cm."""
+def E_upper(E_lower, freq):
+  """
+  Energy of the upper level of a transition
+  
+  Given the lower state energy and the transition frequency, this returns 
+  the upper state energy.
+  
+  @param E_lower : lower state energy in 1/cm
+  @type  E_lower : float
+  
+  @param freq : frequency of the transition in MHz
+  @type  freq : float
+  
+  @return: float
+  """
   return E_lower + freq*MHz2invCm
 
-def column_density(freq,TaDv,g_up,Aul):
-  """Given the line frequency in MHz, the integrated line intensity in
-  K km/s, the upper state degeneracy, and the Einstein A, returns the
-                      -2
-  column density in cm  ."""
+def column_density(freq, TaDv, g_up, Aul):
+  """
+  Column density from an integrated spectral line
+  
+  Given the line frequency, the integrated line intensity, the upper state
+  degeneracy, and the Einstein A, returns the column density in cm**-2.
+  
+  @param freq : line frequrncy in MHz
+  @type  freq : float
+  
+  @param TaDv : integrated line intensity in K-km/s
+  @type  TaDv : float
+  
+  @param g_up : upper state degeneracy
+  @type  g_up : int
+  
+  @param Aul : Einstein A
+  @type  Aul : float
+  
+  @return: float
+  """
   MKS = m.log(8*m.pi*P.k*m.pow(freq*1e6,2)*TaDv/(P.h*P.c**3*g_up*Aul))
   cgs = MKS - m.log(1e4)
   return cgs
 
-def brightness_temperature(source_function,optical_depth):
-  """Given the source function of the medium, expressed using the Rayleigh
-  Jeans approximation in K, and the optical depth through the medium,
-  returns the brightness temperature assuming no background continuum
-  emission."""
+def brightness_temperature(source_function, optical_depth):
+  """
+  Brightness temperature of a gas cloud
+  
+  Given the source function of the medium, expressed using the Rayleigh
+  Jeans approximation in K (see source_function_K), and the optical depth 
+  through the medium, returns the brightness temperature assuming no 
+  background continuum emission.
+  
+  @param source_function : in form of Rayleigh-Jeans approximation in K
+  @type  source_function : float
+  
+  @param optical_depth :
+  @type  optical_depth : float
+  
+  @return: float
+  """
   return source_function*(1. - m.exp(-optical_depth))
 
-def source_function_K(freq,population_ratio):
-  """Given the ratio of the upper and lower populations per degenerate
-  sublevel, i.e., (n_u/g_u)/(n_l/g_l), and the frequency of the transition
-  in Hz, returns the Rayleigh-Jeans approximation of the source function
-  in K."""
+def source_function_K(freq, population_ratio):
+  """
+  Given the ratio of the upper and lower populations per degenerate
+  sublevel and the frequency of the transition, returns the Rayleigh-Jeans 
+  approximation of the source function in K.
+  
+  @param freq : frequency of the transition in Hz
+  @type  freq : float or int
+  
+  @param population_ratio : (n_u/g_u)/(n_l/g_l)
+  @type  population_ratio : float or rational fraction
+  
+  @return: float
+  """
   return (P.h*freq/P.k)/(1./population_ratio - 1.)
 
 def MKS_extinction_coefficient(n_u, pop_ratio, freq, Aul, dv):
-  """Given the upper and lower level degeneracies, the upper and lower
-  degenerate sublevel populations in m^-3, the transition frequency in Hz,
-  the Einstein A in 1/s and the linewidth in m/s, returns the extinction
-  coefficient."""
+  """
+  Extinction coefficient in MKS units
+  
+  Given the upper and lower level degeneracies, the upper and lower degenerate
+  sublevel populations, the transition frequency, the Einstein A and the 
+  linewidth, returns the extinction coefficient.
+  
+  @param n_u : upper degenerate sublevel population in m^-3
+  @type  n_u : float
+  
+  @param pop_ratio :
+  @type  pop_ratio :
+  
+  @param freq : transition frequency in Hz
+  @type  freq : float or int
+  
+  @param Aul : Einstein A in 1/s
+  @type  Aul : float
+  
+  @param dv : linewidth in m/s
+  @type  dv : float
+  
+  @return: float
+  """
   factor = pow(P.c/freq,3)*Aul/8/m.pi
   pop_term = (1/pop_ratio - 1) * n_u
   return factor*pop_term/dv
 
 def optical_depth(extinc_coef,path_length):
-  """Given the extinction coefficient and the path length in the same
-  system of units, returns the optical depth."""
+  """
+  Optical depth
+  
+  Given the extinction coefficient and the path length in the same
+  system of units, returns the optical depth.
+  
+  @param extinc_coef : extinction coefficient in 1/cm
+  @type  extinc_coef : float
+  
+  @param path_length : depth of gas cloud in cm
+  @type  path_length : float
+  
+  @return: float
+  """
   return extinc_coef * path_length
 
-def get_partition_func(moltag,temps):
-  """Returns log10 of the partition function at the temperatures given
+def get_partition_func(moltag, temps):
+  """
+  Partition function from JPL catalog
+  
+  Returns log10 of the partition function at the temperatures given
   in list or array 'temps' for the molecule specified by 'moltag'.  If
   'temps' has length 1, numpy treats it as a scalar and so this function
   will return a scalar.
   The JPL catalog should be used because the Koln catalog does not give the
-  partition function for methanol."""
+  partition function for methanol.
+  
+  @param moltag : molecule ID in JPL database
+  @type  moltag : int
+  
+  @param temps : list of temperatures in K
+  @type  temps : list of int or float
+  
+  @return: nparray
+  """
   metadata = jpl.get_mol_metadata(moltag)
   log_Q = []
   T = metadata[2].keys()
@@ -77,10 +173,25 @@ def get_partition_func(moltag,temps):
   x=np.log10(temps)
   return np.interp(x,log_T,log_Q)
 
-def n_upper_LTE(n_species,transition,temp):
-  """Returns the population of the upper state of the line whose data
+def n_upper_LTE(n_species, transition, temp):
+  """
+  Upper state population of a transition
+  
+  Returns the population of the upper state of the line whose data
   are given in the dictionary 'transition', assuming LTE at the temperature
-  'temp'."""
+  'temp'.
+  
+  @param n_species : column density of the species
+  @type  n_species : float
+  
+  @param transition : spectral line data
+  @type  transition : dict
+  
+  @param temp : temperature in K
+  @type  temp float or int
+  
+  @return: float
+  """
   moltag = abs(transition['tag'])
   # switch to the JPL catalog for methanol
   if moltag == 32504:
@@ -98,9 +209,11 @@ def n_upper_LTE(n_species,transition,temp):
   return n_u
 
 def LTE_pop_ratio(transition,temp):
-  """Given the transition data as a dictionary such as returned by
+  """
+  Given the transition data as a dictionary such as returned by
   methanol.get_A_state_transitions() and a temperature in K, returns the LTE
-  population ratio for the transition levels."""
+  population ratio for the transition levels.
+  """
   g_upper = 2*int(transition['q upper'][0])+1
   g_lower = 2*int(transition['q lower'][0])+1
   freq = transition['freq']

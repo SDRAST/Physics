@@ -1,11 +1,13 @@
-"""Functions to support operations on methanol laboratory line data, like
+"""
+Functions to support operations on methanol laboratory line data, like
 selecting A or E state data and plotting A and E state levels and
-transitions."""
+transitions.
+"""
 
 #from Physics import *
 import Physics as P
 from Physics.Radiation.Lines.Molec import koln
-from Graphics import colormap as C
+from support.Graphics import colormap as C
 #from pylab import *
 import pylab as py
 from math import log10
@@ -14,10 +16,11 @@ from math import log10
 MHz2invCm = (P.pq(1e6,'Hz')/P.pq(1,'c')).inUnitsOf('1/cm').value
 
 def get_A_state_transitions(line_data,v):
-  """Extracts the A state transitions from the Koln catalog for the v=0 or
+  """
+  Extracts the A state transitions from the Koln catalog for the v=0 or
   v=1 vibrational states.  These are characterized by having the fourth quantum
   number as +0 or -0 for v=0 and +1 or -1 for v=1.
-  The data are obtained like this:
+  The data are obtained like this::
     cat = open_molecule(32504)
     line_data = cat.readlines()
     A_transitions = get_A_state_transitions(line_data,0)
@@ -38,9 +41,10 @@ def get_A_state_transitions(line_data,v):
   return A_state_transitions
 
 def get_E_state_transitions(line_data,v):
-  """Extracts the E state transitions from the Koln catalog for the vibrational
+  """
+  Extracts the E state transitions from the Koln catalog for the vibrational
   state v=0 or v=1.  These are characterized by having the fourth quantum
-  number as 0 or 1. The data are obtained like this:
+  number as 0 or 1. The data are obtained like this::
     cat = open_molecule(32504)
     line_data = cat.readlines()
     E_transitions = get_E_state_transitions(line_data,0)
@@ -61,11 +65,13 @@ def get_E_state_transitions(line_data,v):
   return E_state_transitions
 
 def plot_A_levels(A_transitions, QNindex, E_index, Emax, kmax):
-  """Plots the energy levels of the A-states up to Emax (1/cm) and K=kmax.
+  """
+  Plots the energy levels of the A-states up to Emax (1/cm) and K=kmax.
   Use QNindex (e.g. 'q upper' or 'q lower') as the basis for extracting the
   quantum number data from the transition dictionaries.  Use E_index (typically
   'E lower') to extract the energy data. Because there are two A states, except
-  for K=0, they are plotted side by side with different line styles."""
+  for K=0, they are plotted side by side with different line styles.
+  """
   levels = []
   for level in A_transitions:
     try:
@@ -116,12 +122,14 @@ def plot_A_levels(A_transitions, QNindex, E_index, Emax, kmax):
     py.text(K+0.2,1,'-')
 
 def plot_E_levels(E_transitions, QNindex, E_index, Emax, kmin, kmax):
-  """Plots the energy levels of the A-states up to Emax (1/cm) and
+  """
+  Plots the energy levels of the A-states up to Emax (1/cm) and
   kmin <= K< = kmax. Use QNindex (e.g. 'q upper' or 'q lower') as the basis for
   extracting the quantum number data from the transition dictionaries.  Use
   E_index (typically 'E lower') to extract the energy data. Because there are
   two A states, except for K=0, they are plotted side by side with different
-  line styles."""
+  line styles.
+  """
   lower_E = []
   levels = []
   for level in E_transitions:
@@ -149,11 +157,13 @@ def plot_E_levels(E_transitions, QNindex, E_index, Emax, kmin, kmax):
         py.text(k+0.4,Elo,level[QNindex][0])
 
 def plot_A_transitions(A_transitions,Amin,Amax,color=True,logA=True):
-  """Plot the radiative decays in the list A_transitions. Amin and Amax are the
+  """
+  Plot the radiative decays in the list A_transitions. Amin and Amax are the
   rates for the bottom and top of the color bar. By default the logarithm of
   the rates are printed as colors.  If color is false, the rate or logarithm
   of the rate is plotted as a black line with the linewidth proportional to
-  the rate."""
+  the rate.
+  """
   for trans in A_transitions:
     Elo = float(trans['E lower'])
     f = float(trans['freq'])
@@ -198,8 +208,10 @@ def plot_A_transitions(A_transitions,Amin,Amax,color=True,logA=True):
         py.plot([kup,klo],[Eup,Elo],'-',lw=linew, c='k')
 
 def plot_E_transitions(E_transitions,Amin,Amax):
-  """Plot the radiative decays in the list A_transitions. Amin and
-  Amax are the rates for the bottom and top of the color bar."""
+  """
+  Plot the radiative decays in the list A_transitions. Amin and
+  Amax are the rates for the bottom and top of the color bar.
+  """
   for trans in E_transitions:
     Elo = float(trans['E lower'])
     f = float(trans['freq'])

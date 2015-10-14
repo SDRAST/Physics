@@ -6,7 +6,7 @@ import urllib2
 from Physics import *
 import Math as M
 import operator
-import text
+from support import text
 import re
 from os.path import exists
 
@@ -211,13 +211,12 @@ def quantum_label(tag,q_nums,q_fmt,deg_free):
   @param q_fmt : quantum number format code
 
   @return: tuple::
-  1) a list of quantum number labels such as
-     ['J', 'K_a', 'K_c', 'v_t', '', ''] and
-  2) a TeX-able string for the quantum assignment of the state with
-     the quantum numbers 'q_nums'.
+    1) a list of quantum number labels such as
+       ['J', 'K_a', 'K_c', 'v_t', '', ''] and
+    2) a TeX-able string for the quantum assignment of the state with
+       the quantum numbers 'q_nums'.
   Some of the labels may depend on the values of some of the
   quantum numbers.
-  
   """
   if diag:
     print q_nums

@@ -1,17 +1,21 @@
-"""Functions which use the atomic position data in MOL files such as those
+"""
+Functions which use the atomic position data in MOL files such as those
 obtained from
 http://webbook.nist.gov/chemistry/name-ser.html
 or
-http://www.ebi.ac.uk/chebi/"""
+http://www.ebi.ac.uk/chebi/
+"""
 
 from re import search
 import Physics as P
-from numpy import *
+from numpy import zeros, linalg
 
 def get_position_data(mol_data):
-  """This obtains data from a MOL file such as may be obtained from the
+  """
+  This obtains data from a MOL file such as may be obtained from the
   Chemical Entities of Biological Interest (ChEBI) website, or
-  the NIST website."""
+  the NIST website.
+  """
   global n_atoms
   x = []
   y = []
@@ -35,7 +39,9 @@ def get_position_data(mol_data):
   return ID,x,y,z
 
 def format_LaTeX_table(ID,x,y,z):
-  """Makes a LaTeX formatted table of the atomic position data in a MOL file."""
+  """
+  Makes a LaTeX formatted table of the atomic position data in a MOL file.
+  """
   print "\\begin{tabular}{c|ccc}"
   print "{\\bfseries Atom} & {\\bfseries X} & {\\bfseries Y} & {\\bfseries Z} \\\\"
   print "{\\bfseries ID} & $\stackrel{\\circ}{\\mathrm{A}}$ & $\stackrel{\\circ}{\\mathrm{A}}$ & $\stackrel{\\circ}{\\mathrm{A}}$ \\\\"
@@ -44,11 +50,13 @@ def format_LaTeX_table(ID,x,y,z):
   print "\\end{tabular}"
 
 def inertia_matrix(ID,x,y,z,diag=False):
-  """Computes the rotation constants from MOL file data.  Returns a tuple
+  """
+  Computes the rotation constants from MOL file data.  Returns a tuple
   with the inertia tensor, whether it is diagonalized or not, and the
   atom coordinates relative to the center of mass. For the coordinates the
   first index is the axis, the second the atom. 
-  Diagnostics print out if diag = 1."""
+  Diagnostics print out if diag = 1.
+  """
   # Create arrays with masses and coordinates for all atoms
   n_atoms = len(ID)
   m = zeros((n_atoms),float)       # masses of nuclei
@@ -120,7 +128,9 @@ def inertia_matrix(ID,x,y,z,diag=False):
   return inertia, diagonalized, r
 
 def diagonalize_matrix(inertia, diag=False):
-  """Diagonalize the inertia tensor.  Print out diagnostics if diag = 1."""
+  """
+  Diagonalize the inertia tensor.  Print out diagnostics if diag = 1.
+  """
   diagonal=zeros((3),float)
   off_diagonal=zeros((3),float)
 

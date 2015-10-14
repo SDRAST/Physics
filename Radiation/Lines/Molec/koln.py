@@ -1,15 +1,12 @@
-"""koln_cat.py - Routines to access the Cologne Database for Molecular
-Spectroscopy.
+"""
+koln_cat.py - Routines for the Cologne Database for Molecular Spectroscopy.
 
 The database has one main format format, described in
 http://www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml.
 Most datafiles follow the JPL Spectral Line Catalog format.  However, there
-                                                                   -1
-are exceptions. For example, the light hydrides have frequencies cm
+are exceptions. For example, the light hydrides have frequencies cm^-1
 instead of MHz.  For methanol, the intensity entry is
-          2      2
-log  (S mu ) in D  and the quantum numbers have special meanings.
-   10
+log_10  (S mu^2 ) in D^2  and the quantum numbers have special meanings.
 """
 
 import urllib
@@ -20,11 +17,13 @@ koln_url = 'http://www.astro.uni-koeln.de/site/vorhersagen/catalog/'
 
         
 def parse_catalog_line(line):
-    """This parses a line of data extracted from a molecular data file.
+    """
+    This parses a line of data extracted from a molecular data file.
     It returns a dictionary with fairly obvious keys.
     For the encoding details see
     http://www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml\
-      #description"""
+      #description
+    """
     line_data = line.split()
     data = {}
     data['freq'] = float(line_data[0])          # MHz
@@ -62,10 +61,12 @@ def parse_catalog_line(line):
     return(data)
 
 def get_mol_metadata(tag):
-    """Get the general data for the molecule specified by tag,
+    """
+    Get the general data for the molecule specified by tag,
     returning a sequence consisting of the name, the number of lines in the
     data file, and a dictionary with partition function data keyed to
-    temperatures"""
+    temperatures
+    """
     q_temps = [300, 225, 150, 75, 37.5, 18.25, 9.375]
     # Do we have a local copy?
     try:
@@ -94,16 +95,20 @@ def get_mol_metadata(tag):
       return 'none',0,{}
 
 def einstein_a(freq,line_str,g_up):
-    """Einstein A from line_str (S_g mu_g^2), freq (MHz) and g_up, as
+    """
+    Einstein A from line_str (S_g mu_g^2), freq (MHz) and g_up, as
     per eq. 6 in
-    www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml"""
+    www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml
+    """
     return 1.16395e-20 * freq**3 * line_str / g_up
 
 
 def make_Koln_E_table():
-  """Get a unique list sorted by increasing energy from the Koln catalog.
+  """
+  Get a unique list sorted by increasing energy from the Koln catalog.
   Each item in the output list contains:
-  sequence number, quantum number list, energy"""
+  sequence number, quantum number list, energy
+  """
   transitions = extract_lines(32504)
   levels = find_levels(transitions)
   sorted_levels = sorted(levels,key=operator.itemgetter(1))

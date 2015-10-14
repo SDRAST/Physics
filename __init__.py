@@ -1,27 +1,28 @@
 # -*- coding: utf-8 -*-
-"""module Physics
+"""
+module Physics
 
 The module Scientific.Physics is pretty limited.  This package is intended
 mainly to support astrophysical calculations, particularly as related to
 radiation. This module defines some SI constants as globals and also extends
 the unit objects defined in Scientific.Physics.PhysicalQuantities.
 
-In addition, the module is the entry point for a package with various functions used in astrophysical calculations. The package structure is
-
-ConstantsExtra      - extra constants not globally defined in this module
-Radiation
-  Continuum
-  Lines             - functions and data for spectral lines
-    recomb_lines    - functions and data for recombination line radiation
-    Molec_Lines     - functions for molecular line radiation
-      jpl_cat       - reading and manipulating data in the JPL Catalog
-      quantum_label - decodes the quantum numbers in JPL Catalog format
+In addition, the module is the entry point for a package with various functions
+used in astrophysical calculations. The package structure is::
+  ConstantsExtra      - extra constants not globally defined in this module
+  Radiation
+    Continuum
+    Lines             - functions and data for spectral lines
+      recomb_lines    - functions and data for recombination line radiation
+      Molec_Lines     - functions for molecular line radiation
+        jpl_cat       - reading and manipulating data in the JPL Catalog
+        quantum_label - decodes the quantum numbers in JPL Catalog format
 
 The global physical constants are in the Systeme Internationale
 based on Scientific.Physics.PhysicalQuantities
-but extended with
+but extended with::
      ke     
-These are defined as globals:
+These are defined as globals::
      alpha, fine structure constant, e^2/(4 pi eps_0 h_bar c)
      c,     speed of light in m/s
      e,     elementary charge in coulomb
@@ -39,28 +40,26 @@ These are defined as globals:
      m_u,   mass of an atomic mass unit, kg
      mu_0,  vacuum permittivity or magnetic constant, 4 pi 10^7 N A^-2
      Z_0,   vacuum impedance, sqrt(mu0/eps_0), ohm
-The dictionary AMU provides the atomic mass for
+The dictionary AMU provides the atomic mass for::
    H, He, C, N, O, Ne, Na, Xe, and Hg.
 
-A suggested way to use this module is:
+A suggested way to use this module is::
   from Physics import *
 This defines 'PQ' as an alias for Scientific.Physics.PhysicalQuantities
 and 'pq' as an alias for PQ.PhysicalQuantity. pq is an object with a value
 and a combination of units. The physical quantity itself is a unit too.
-See 'help(pq)' for the documentation.  An example:
-In [3]: pq(1,'c')
-Out[3]: PhysicalQuantity(1,'c')
+See 'help(pq)' for the documentation.  An example::
+ In [3]: pq(1,'c')
+ Out[3]: PhysicalQuantity(1,'c')
+ In [4]: pq(1,'c').inBaseUnits()
+ Out[4]: PhysicalQuantity(299792458.0,'m/s')
+ In [5]: pq(1,'c').inUnitsOf('cm/s').value
+ Out[5]: 29979245800.0
+ In [6]: pq(1,'c').inUnitsOf('mi/h').value
+ Out[6]: 670616629.38439512
 
-In [4]: pq(1,'c').inBaseUnits()
-Out[4]: PhysicalQuantity(299792458.0,'m/s')
-
-In [5]: pq(1,'c').inUnitsOf('cm/s').value
-Out[5]: 29979245800.0
-
-In [6]: pq(1,'c').inUnitsOf('mi/h').value
-Out[6]: 670616629.38439512
-
-The functions 'sound_speed' and 'plasma_frequency' are also defined here."""
+The functions 'sound_speed' and 'plasma_frequency' are also defined here.
+"""
 
 __author__    = "Tom Kuiper kuiper@jpl.nasa.gov"
 __version__   = "$Revision: 1.1.1.1 $"
@@ -174,11 +173,6 @@ def plasma_frequency(electron_density):
 
     To get cyclic plasma frequency (Hz) divide by 2*pi
 
-    @param electron_density : electron density in cm^{-3}
-    @type  electron_density : float
-    
-    @return: plasma frequency in radians/sec (float)
-
     Tests
     =====
     In [1]: import Physics as P
@@ -192,6 +186,11 @@ def plasma_frequency(electron_density):
     Reference
     =========
     http://www.carnicom.com/plasma1.htm
+
+    @param electron_density : electron density in cm^{-3}
+    @type  electron_density : float
+    
+    @return: plasma frequency in radians/sec (float)
     """
     n = electron_density*1e6 # convert from cm^-3 to m^-3
     const = e/math.sqrt(m_e*eps_0)
