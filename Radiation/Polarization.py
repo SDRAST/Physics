@@ -1,5 +1,45 @@
 """
 Provides class, data and methods for computing with polarized signals
+
+The IAU defines polarization in terms of a right-handed coordinate system with
+the wave propagating towards the observer as the Z axis. The other coordinates
+are Right Ascension (X) and Declination (Y). The position angle of the electric
+vector maximum (for linear or elliptical polarization) is measured from North
+through East.
+
+Note that the polarization angle theta_P is related to the usual polar angle
+[theta = cotan(Y/X)] by theta_P = pi/2 - theta, or theta_P = cotan(X/Y).
+
+A left circularly polarized wave is one in which the electric vector rotates 
+counterclockwise when viewed along the axis of propagation, that is, increasing
+polar angle. From the point of view of an observer, the vector rotates
+clockwise. To drive the point home, an incoming left circularly polarized wave
+rotates to the right.
+
+An LCP wave can be obtained from two linearly polarized waves in which the wave
+parallel to Y (X=0 plane) is pi/2 ahead of the wave which is parallel to X
+(Y=0 plane)::
+  E    = E  sin(2 pi f t) + E  cos(2 pi f t)
+   LCP    H                  V
+   
+       = E  sin(2 pi f t) + E  sin(2 pi x/lambda + pi/2)
+          H                       V
+
+Expressing that using complex notation (which accounts for the phase as well as
+the amplitude of each component::
+             
+  E    = (E  + i E )/sqrt(2)
+   LCP   ( H      V)
+   
+  E    = (i E  + E )/sqrt(2)
+   RCP   (   H    V)
+
+In matrix notation::
+  |E   |   | 1   i | |E |
+  | LCP|   |       | | H|
+  |    | = |       | |  |
+  |E   |   | i   1 | |E |
+  | RCP|   |       | | V|
 """
 from numpy import abs, array
 from numpy.linalg import inv
@@ -131,6 +171,7 @@ class Signal(object):
     self.U = float(((0-1j)*(Slr-Srl)).real)
     self.V = float(Sll-Srr)
     self.Stokes = self.I,self.Q,self.U,self.V
+    self.logger.debug("Stokes_from_circular: Stokes: %s", self.Stokes)
     return self.Stokes
 
   def polarization_ellipse(self):
@@ -145,13 +186,15 @@ class Signal(object):
       self.ellipse['angle'] = 0.5*atan(self.U/self.Q)
     else:
       self.ellipse['angle'] = float('NaN')
-    if self.V:
-      self.ellipse['eccen'] = sqrt(self.Q**2 + self.U*2)/self.V
+    if (self.Q**2 + self.U**2):
+      self.ellipse['eccen'] = self.V/sqrt(self.Q**2 + self.U**2)
     else:
       self.ellipse['eccen'] = float('inf')
 
 # --------------------------------------- DATA --------------------------------
 
+# This converts from linear to circular modes.  Its inverse converts from
+# circular to linear modes.
 quad_hybrid = array([[1+0j, 0+1j],
-                     [1+0j, 0-1j]])/sqrt(2)
+                     [0+1j, 1+0j]])/sqrt(2)
 
