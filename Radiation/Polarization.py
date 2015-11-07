@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 """
 Provides class, data and methods for computing with polarized signals
 
@@ -198,3 +199,75 @@ class Signal(object):
 quad_hybrid = array([[1+0j, 0+1j],
                      [0+1j, 1+0j]])/sqrt(2)
 
+if __name__ == "__main__":
+  """
+  Test cases from 
+  https://en.wikipedia.org/wiki/Stokes_parameters#Relation_to_the_polarization_ellipse
+  |I|   | 1|
+  |Q|   | 1| 
+  |U| = | 0| 	Linearly polarized (horizontal)
+  |V|   | 0|
+
+      | 1| 
+      |-1| 
+      | 0| 	Linearly polarized (vertical)
+      | 0|
+      
+      | 1|
+      | 0| 
+      | 1|  Linearly polarized (+45°)
+      | 0|
+
+      | 1| 
+      | 0|
+      |-1| 	Linearly polarized (−45°)
+      | 0|
+      
+      | 1| 
+      | 0| 
+      | 0|  Right-hand circularly polarized
+      | 1|
+      
+      | 1| 
+      | 0| 
+      | 0| 	Left-hand circularly polarized
+      |-1|
+      
+      | 1|
+      | 0| 
+      | 0| 	Unpolarized
+      | 0|
+  The tests below agree with Kraus, Radio Astronomy, section 4-4 (1966). The 
+  confusion is clarified in 
+  https://en.wikipedia.org/wiki/Circular_polarization#Left.2Fright_handedness_conventions
+  """
+  X = Signal()
+  print "\nlinear horizontal"
+  print "X,Y electric field =", X.linear.flatten()
+  print "Stokes =", X.Stokes
+
+  Y = Signal(E=(0,1))
+  print "\nlinear vertical"
+  print "X,Y electric field =", Y.linear.flatten()
+  print "Stokes =", Y.Stokes
+  
+  XYp45 = Signal(E=(sqrt(2)/2,sqrt(2)/2))
+  print "\nlinear +45 deg"
+  print "X,Y electric field =", XYp45.linear.flatten()
+  print "Stokes =", XYp45.Stokes
+  
+  XYm45 = Signal(E=(-sqrt(2)/2,sqrt(2)/2))
+  print "\nlinear -45 deg"
+  print "X,Y electric field =", XYm45.linear.flatten()
+  print "Stokes =", XYm45.Stokes
+  
+  LC = Signal(mode='circular')
+  print "\nleft circular"
+  print "L,R electric fields =", LC.circular.flatten()
+  print "Stokes =", LC.Stokes
+  
+  RC = Signal(mode='circular',E=(0,1))
+  print "\nright circular"
+  print "L,R electric fields =", RC.circular.flatten()
+  print "Stokes =", RC.Stokes
+  
