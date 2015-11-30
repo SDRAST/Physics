@@ -44,7 +44,7 @@ In matrix notation::
 """
 from numpy import abs, array
 from numpy.linalg import inv
-from math import atan, sqrt
+from math import atan, pi, sqrt, tan
 import logging
 
 module_logger = logging.getLogger(__name__)
@@ -184,13 +184,25 @@ class Signal(object):
     self.ellipse['d_cir'] = abs(self.V)/self.I
     self.ellipse['d'] = sqrt(self.Q**2 + self.U**2 + self.V**2)/self.I
     if self.Q:
-      self.ellipse['angle'] = 0.5*atan(self.U/self.Q)
+      self.ellipse['theta'] = 0.5*atan(self.U/self.Q)
     else:
-      self.ellipse['angle'] = float('NaN')
+      self.ellipse['theta'] = float('NaN')
+    self.logger.debug("polarization_ellipse: theta = %f",
+                      self.ellipse['theta'])
+
     if (self.Q**2 + self.U**2):
-      self.ellipse['eccen'] = self.V/sqrt(self.Q**2 + self.U**2)
+      self.ellipse['beta'] = 0.5*atan(self.V/sqrt(self.Q**2 + self.U**2))
+      if self.V:
+        self.ellipse['eccen'] = tan(self.ellipse['beta'])
+      else:
+        self.ellipse['eccen'] = 0.
     else:
-      self.ellipse['eccen'] = float('inf')
+      self.ellipse['beta'] = pi/4
+      self.ellipse['eccen'] = 1.
+    self.logger.debug("polarization_ellipse: beta = %f",
+                      self.ellipse['beta'])
+    self.logger.debug("polarization_ellipse: eccen = %f",
+                      self.ellipse['eccen'])
 
 # --------------------------------------- DATA --------------------------------
 
