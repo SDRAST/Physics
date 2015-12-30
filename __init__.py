@@ -163,9 +163,9 @@ def sound_speed(T,M):
     @type  T : float
     @param M : the mean molecular weight in AMU
     @type  M : float
-    @return:  the sound speed in cm/s (float).
+    @return:  the sound speed in m/s (float).
     """
-    return math.sqrt(k*T/(M*M_amu))
+    return math.sqrt(k*T/(M*m_u))
 
 def plasma_frequency(electron_density):
     """

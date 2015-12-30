@@ -2,15 +2,16 @@
 module Radiation
 
 This module contains functions related to emission mechanisms. 
-This module also defines the physical quantity for jansky and has some
-handy conversions.
 """
-
+import logging
 import Physics as P
 import math as m
 import numpy as np
 from Lines.Molec import jpl
 from Lines.Molec import koln
+
+logging.basicConfig(level=logging.WARNING)
+module_logger = logging.getLogger(__name__)
 
 # Some handy conversions
 
@@ -84,9 +85,14 @@ def brightness_temperature(source_function, optical_depth):
 
 def source_function_K(freq, population_ratio):
   """
+  Source function for a given population ratio and frequency
+  
   Given the ratio of the upper and lower populations per degenerate
   sublevel and the frequency of the transition, returns the Rayleigh-Jeans 
   approximation of the source function in K.
+  
+  Note that the population ratio here is not the same as returned by
+  LTE_pop_ratio.
   
   @param freq : frequency of the transition in Hz
   @type  freq : float or int
@@ -98,9 +104,38 @@ def source_function_K(freq, population_ratio):
   """
   return (P.h*freq/P.k)/(1./population_ratio - 1.)
 
-def MKS_extinction_coefficient(n_u, pop_ratio, freq, Aul, dv):
+def extinction_coefficient_MKS(n_u, pop_ratio, freq, Aul, dv):
   """
   Extinction coefficient in MKS units
+  
+  Given the upper and lower level degeneracies, the upper and lower degenerate
+  sublevel populations, the transition frequency, the Einstein A and the 
+  linewidth, returns the extinction coefficient.
+  
+  @param n_u : upper degenerate sublevel population in cm^-3
+  @type  n_u : float
+  
+  @param pop_ratio : n_u/n_l
+  @type  pop_ratio : float
+  
+  @param freq : transition frequency in Hz
+  @type  freq : float or int
+  
+  @param Aul : Einstein A in 1/s
+  @type  Aul : float
+  
+  @param dv : linewidth in cm/s
+  @type  dv : float
+  
+  @return: float (1/m)
+  """
+  factor = pow(P.c/freq,3)*Aul/8/m.pi
+  pop_term = (1/pop_ratio - 1) * n_u
+  return factor*pop_term/dv
+
+def extinction_coefficient_CGS(n_u, pop_ratio, freq, Aul, dv):
+  """
+  Extinction coefficient in CGS units
   
   Given the upper and lower level degeneracies, the upper and lower degenerate
   sublevel populations, the transition frequency, the Einstein A and the 
@@ -109,8 +144,8 @@ def MKS_extinction_coefficient(n_u, pop_ratio, freq, Aul, dv):
   @param n_u : upper degenerate sublevel population in m^-3
   @type  n_u : float
   
-  @param pop_ratio :
-  @type  pop_ratio :
+  @param pop_ratio : n_u/n_l
+  @type  pop_ratio : float
   
   @param freq : transition frequency in Hz
   @type  freq : float or int
@@ -121,12 +156,10 @@ def MKS_extinction_coefficient(n_u, pop_ratio, freq, Aul, dv):
   @param dv : linewidth in m/s
   @type  dv : float
   
-  @return: float
+  @return: float (1/m)
   """
-  factor = pow(P.c/freq,3)*Aul/8/m.pi
-  pop_term = (1/pop_ratio - 1) * n_u
-  return factor*pop_term/dv
-
+  return extinction_coefficient_MKS(n_u*1e6, pop_ratio, freq, Aul, dv/100)/100
+  
 def optical_depth(extinc_coef,path_length):
   """
   Optical depth
@@ -177,11 +210,11 @@ def n_upper_LTE(n_species, transition, temp):
   """
   Upper state population of a transition
   
-  Returns the population of the upper state of the line whose data
+  Returns the population density of the upper state of the line whose data
   are given in the dictionary 'transition', assuming LTE at the temperature
   'temp'.
   
-  @param n_species : column density of the species
+  @param n_species : column density of the species (cm^-3 or m^-3)
   @type  n_species : float
   
   @param transition : spectral line data
@@ -190,7 +223,7 @@ def n_upper_LTE(n_species, transition, temp):
   @param temp : temperature in K
   @type  temp float or int
   
-  @return: float
+  @return: float (same units as n_species)
   """
   moltag = abs(transition['tag'])
   # switch to the JPL catalog for methanol
@@ -200,22 +233,26 @@ def n_upper_LTE(n_species, transition, temp):
   # list is length 1, it returns a scalar.
   temps = []
   temps.append(temp)
-  Qs = get_partition_func(moltag,temp)
-  Q = m.pow(10.,Qs)
-  E_u = E_upper(transition['E lower'],transition['freq'])
+  log10_Q = get_partition_func(moltag, temp)
+  module_logger.info(" n_upper_LTE: log10(Q) = %f", log10_Q)
+  Q = 10**log10_Q
+  E_u = E_upper(transition['E lower'], transition['freq'])
   level_energy_K = K_per_inv_cm*E_u
   n_u = n_species*transition['g upper']* \
     m.exp(-level_energy_K/temp)/Q
   return n_u
 
-def LTE_pop_ratio(transition,temp):
+def LTE_pop_ratio(transition, temp, degenerate=True):
   """
-  Given the transition data as a dictionary such as returned by
-  methanol.get_A_state_transitions() and a temperature in K, returns the LTE
-  population ratio for the transition levels.
+  Given the transition data as a dictionary and a temperature in K, returns the
+  LTE population ratio for the transition levels.
   """
   g_upper = 2*int(transition['q upper'][0])+1
   g_lower = 2*int(transition['q lower'][0])+1
   freq = transition['freq']
-  return (g_upper/g_lower)*m.exp(-P.h*freq*1e6/P.k/temp)
+  R = m.exp(-P.h*freq*1e6/P.k/temp)
+  if degenerate:
+    return (float(g_upper)/g_lower)*R
+  else:
+    return R
 
