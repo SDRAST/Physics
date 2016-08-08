@@ -24,7 +24,7 @@ Empirical Constants::
      e,     elementary charge in coulomb
      h,     Planck constant, J s
      h_bar, Planck constant, J s
-     m_p,   proton mass
+     m_p,   Planck mass, kg
      alpha, fine structure constant, e^2/(4 pi eps_0 h_bar c)
 The dictionary AMU provides the atomic mass for H, He, C, N, O,
 Ne, Na, Xe, and Hg.
@@ -55,7 +55,7 @@ import math
 #import recomb_lines
 #import molec_lines
 
-c     = 299792458       # 29,792,458 = 3e8 m/s
+c     = 299792458       # 299,792,458 = 3e8 m/s
 mu_0  = 12.566370614e7  # N/A^2
 eps_0 = 8.854187817e-12 # farad/m
 Z_0   = 376.730313461   # ohm
@@ -77,12 +77,25 @@ AMU   = {'H':1.0081,'He':4.0028,'C':12.01161,'N':14.0067,'O':15.9994,\
 eV    = e               # J
 
 
-def sound_speed(T,M):
+def sound_speed(T, M, f=3):
     """
-    given the temperature in K and the mean molecular weight
-    in AMU, returns the sound speed in cm/s.
+    sound speed for atomic particles
+    
+    Note: This is an MKS calculation with k in J/K, T in K and M*m_u in kg.
+    
+    @param T : temperature in K
+    @type  T : float
+    
+    @param M : mean atomic (molecular) weight
+    @type  M : float or int
+    
+    @param f : degrees of freedom (=3 for atoms, 5 for non-vibrating molecules)
+    @type  f : int
+    
+    @return: sound speed in m/s
     """
-    return math.sqrt(k*T/(M*M_amu))
+    gamma = 1 +2./f
+    return math.sqrt(gamma*k*T/(M*m_u))
 
 def plasma_frequency(electron_density):
     """ 
@@ -90,7 +103,7 @@ def plasma_frequency(electron_density):
     given electron density in cm^{-3} 
     """
     # verified: http://www.carnicom.com/plasma1.htm
-    n = electron_density*1e6 # convert from cm^-3 to m^-3
+    n = electron_density*1e6       # convert from cm^-3 to m^-3
     const = e/math.sqrt(m_e*eps_0)
     return const*math.sqrt(n)
 
