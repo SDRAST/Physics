@@ -10,6 +10,7 @@ So, from the 1998 compilation by the Committee on Data for
 Science and Engineering (CODATA) of the International Council of
 Scientific Unions (ICSU), this package provides
 Universal Constants::
+
      c,     speed of light in m/s
      eV,    electron volt, J
      mu_0,  vacuum permittivity or magnetic constant, 4 pi 10^7 N A^-2
@@ -18,7 +19,9 @@ Universal Constants::
      G,     Newtonian constant, m^3 /kg / s^2
      k_e,   Coulomb constant, 1/(4 pi eps_0), N m^2/C^2
      k,     Boltzman constant, J/K
+     
 Empirical Constants::
+
      m_e,   electron mass in kg
      m_u,   mass of an atomic mass unit, kg
      e,     elementary charge in coulomb
@@ -26,18 +29,22 @@ Empirical Constants::
      h_bar, Planck constant, J s
      m_p,   Planck mass, kg
      alpha, fine structure constant, e^2/(4 pi eps_0 h_bar c)
+     
 The dictionary AMU provides the atomic mass for H, He, C, N, O,
 Ne, Na, Xe, and Hg.
 In addition, from Allen, Astrophysical Quantities::
+
      pc, parsec in cm
 
 The modules available here are::
+
   continuum    - functions relating to continuum emission,
   lines        - general functions for line emission
   recomb_lines - function relating to recombination line emission
   jpl_cat      - functions for accessing and decoding the JPL Spectral Line
                  Catalog
   molec_lines  - functions for molecular line emission
+  
 The module 'radiation' is obsolete and will be removed.
 """
 

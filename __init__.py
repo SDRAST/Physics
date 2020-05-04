@@ -9,6 +9,7 @@ the unit objects defined in Scientific.Physics.PhysicalQuantities.
 
 In addition, the module is the entry point for a package with various functions
 used in astrophysical calculations. The package structure is::
+
   ConstantsExtra      - extra constants not globally defined in this module
   Radiation
     Continuum
@@ -21,8 +22,11 @@ used in astrophysical calculations. The package structure is::
 The global physical constants are in the Systeme Internationale
 based on Scientific.Physics.PhysicalQuantities
 but extended with::
+
      ke     
+     
 These are defined as globals::
+
      alpha, fine structure constant, e^2/(4 pi eps_0 h_bar c)
      c,     speed of light in m/s
      e,     elementary charge in coulomb
@@ -40,15 +44,20 @@ These are defined as globals::
      m_u,   mass of an atomic mass unit, kg
      mu_0,  vacuum permittivity or magnetic constant, 4 pi 10^7 N A^-2
      Z_0,   vacuum impedance, sqrt(mu0/eps_0), ohm
+     
 The dictionary AMU provides the atomic mass for::
+
    H, He, C, N, O, Ne, Na, Xe, and Hg.
 
 A suggested way to use this module is::
+
   from Physics import *
+  
 This defines 'PQ' as an alias for Scientific.Physics.PhysicalQuantities
 and 'pq' as an alias for PQ.PhysicalQuantity. pq is an object with a value
 and a combination of units. The physical quantity itself is a unit too.
 See 'help(pq)' for the documentation.  An example::
+
  In [3]: pq(1,'c')
  Out[3]: PhysicalQuantity(1,'c')
  In [4]: pq(1,'c').inBaseUnits()
@@ -69,7 +78,8 @@ __license__   = ""
 
 import math
 from math import pi
-import Scientific.Physics.PhysicalQuantities as PQ
+#import Scientific.Physics.PhysicalQuantities as PQ
+import PhysicalQuantities as PQ
 pq = PQ.PhysicalQuantity
 
 # Extension to physical quantity objects:
@@ -173,8 +183,8 @@ def plasma_frequency(electron_density):
 
     To get cyclic plasma frequency (Hz) divide by 2*pi
 
-    Tests
-    =====
+    Examples
+    ========
     In [1]: import Physics as P
     In [2]: P.plasma_frequency(1.)/(2*pi)
     Out[2]: 8978.6637622453945
@@ -219,12 +229,12 @@ def wavenumber(wvln):
 
 
 def test():
-  print "Coulomb's Law in ESU:"
-  print "  (ke*pq(1,'statC')**2/pq(1,'cm')**2).inUnitsOf('dyn') = ",
-  print (ke*pq(1,'statC')**2/pq(1,'cm')**2).inUnitsOf('dyn')
-  print "Ampere's Law in EMU:"
-  print "  (km*(pq(1,'cm')*pq(1,'abA'))**2/pq(1,'cm')**2).inUnitsOf('dyn') = ",
-  print (km*(pq(1,'cm')*pq(1,'abA'))**2/pq(1,'cm')**2).inUnitsOf('dyn')
+  print("Coulomb's Law in ESU:")
+  print("  (ke*pq(1,'statC')**2/pq(1,'cm')**2).inUnitsOf('dyn') = ", end=' ')
+  print((ke*pq(1,'statC')**2/pq(1,'cm')**2).inUnitsOf('dyn'))
+  print("Ampere's Law in EMU:")
+  print("  (km*(pq(1,'cm')*pq(1,'abA'))**2/pq(1,'cm')**2).inUnitsOf('dyn') = ", end=' ')
+  print((km*(pq(1,'cm')*pq(1,'abA'))**2/pq(1,'cm')**2).inUnitsOf('dyn'))
 
 if __name__ == "__main__":
   test()

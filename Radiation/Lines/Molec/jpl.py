@@ -8,7 +8,7 @@ http://spec.jpl.nasa.gov/
 http://spec.jpl.nasa.gov/ftp/pub/catalog/doc/catintro.pdf
 """
 import logging
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from Physics import *
 import Math as M
 import operator
@@ -33,7 +33,7 @@ def catalog_versions():
   """
   global version
   # First find the available versions
-  fd = urllib2.urlopen(jpl_url)
+  fd = urllib.request.urlopen(jpl_url)
   lines = fd.readlines()
   fd.close()
   versions = []
@@ -59,7 +59,7 @@ def get_codes(first_chars=None):
   If first_chars is given, then only molecules whose names begin with those
   characters are returned.  first_chars may be a regular expression
   """
-  doc_file = urllib2.urlopen(jpl_url+'catdir.cat','r')
+  doc_file = urllib.request.urlopen(jpl_url+'catdir.cat','r')
   doc_text = doc_file.readlines()
   doc_file.close()
   molecules = {}
@@ -81,20 +81,20 @@ def latest_version(code):
   for v in catalog_versions():
     module_logger.debug("latest_version: Trying %s%s/%s",jpl_url, v, filename)
     try:
-      mol_fd = urllib2.urlopen(jpl_url+v+'/'+filename)
-    except urllib2.HTTPError:
+      mol_fd = urllib.request.urlopen(jpl_url+v+'/'+filename)
+    except urllib.error.HTTPError:
       continue
-    if not version.has_key(code):
+    if code not in version:
       version[code] = v
     mol_fd.close()
     return v
   # Now try original catalog
   module_logger.debug("latest_version: trying %s%s",jpl_url,filename)
   try:
-    mol_fd = urllib2.urlopen(jpl_url+filename)
-  except urllib2.HTTPError:
+    mol_fd = urllib.request.urlopen(jpl_url+filename)
+  except urllib.error.HTTPError:
     return None
-  if not version.has_key(code):
+  if code not in version:
     version[code] = v
   mol_fd.close()
   return v
@@ -121,9 +121,9 @@ def open_molecule(code, v=None):
     catpath = jpl_url+filename
   module_logger.info("open_molecule: opening %s", catpath)
   try:
-    mol_fd = urllib2.urlopen(catpath)
+    mol_fd = urllib.request.urlopen(catpath)
     return mol_fd
-  except urllib2.HTTPError, details:
+  except urllib.error.HTTPError as details:
     module_logger.error("open_molecule: could not open %s", catpath)
     module_logger.error("open_molecule: %s", details)
     return None
@@ -496,8 +496,8 @@ def get_mol_metadata(tag):
     #module_logger.debug("get_mol_metadata: looking for %s", doc_path)
     # Now process the doc file
     try:
-      fd = urllib2.urlopen(doc_path)
-    except urllib2.HTTPError, details:
+      fd = urllib.request.urlopen(doc_path)
+    except urllib.error.HTTPError as details:
       module_logger.error("get_mol_metadata: failed %s", details)
       return None
   lines = fd.readlines()
@@ -528,7 +528,7 @@ def get_mol_metadata2(tag):
   as get_mol_metadata()
   """
   q_temps = [300, 225, 150, 75, 37.5, 18.25, 9.375]
-  doc_file = urllib2.urlopen(jpl_url+'catdir.cat','r')
+  doc_file = urllib.request.urlopen(jpl_url+'catdir.cat','r')
   doc_text = doc_file.readlines()
   doc_file.close()
   name = ''
@@ -599,7 +599,7 @@ def convert_JPL_QN(level):
     kc = str(j - k +1)
     new_v = "0"
   else:
-    print "Unexpected value of v:",v,"in",level
+    print("Unexpected value of v:",v,"in",level)
   return [new_j,ka,kc,new_v]
 
 def make_JPLv1_E_table(species):

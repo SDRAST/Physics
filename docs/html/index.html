@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Single Dish Radio Astronomy Software Tools &#8212; Physics 0.9 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="frequency" href="api/Physics.frequency.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/Physics.frequency.html" title="frequency"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Single Dish Radio Astronomy Software Tools</a><ul>
+<li><a class="reference internal" href="#module-Physics">Physics Package</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Physics.Constants">Physics.Constants Package</a><ul>
+<li><a class="reference internal" href="#id1">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Physics.EE">Physics.EE Module</a><ul>
+<li><a class="reference internal" href="#id2">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Physics.Radiation">Physics.Radiation Package</a><ul>
+<li><a class="reference internal" href="#id3">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Physics.Radiation.Lines">Physics.Radiation.Lines Package</a><ul>
+<li><a class="reference internal" href="#id4">Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Physics.Radiation.Lines.Molec">Physics.Radiation.Lines.Molec Package</a><ul>
+<li><a class="reference internal" href="#id5">Functions</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api/Physics.frequency.html"
+                        title="next chapter">frequency</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="single-dish-radio-astronomy-software-tools">
+<h1>Single Dish Radio Astronomy Software Tools<a class="headerlink" href="#single-dish-radio-astronomy-software-tools" title="Permalink to this headline">¶</a></h1>
+<p>For an overview of SDRAST and the current status please visit <a class="reference external" href="https://sdrast.github.io/">https://sdrast.github.io/</a>.</p>
+<div class="section" id="module-Physics">
+<span id="physics-package"></span><h2>Physics Package<a class="headerlink" href="#module-Physics" title="Permalink to this headline">¶</a></h2>
+<p>module Physics</p>
+<p>The module Scientific.Physics is pretty limited.  This package is intended
+mainly to support astrophysical calculations, particularly as related to
+radiation. This module defines some SI constants as globals and also extends
+the unit objects defined in Scientific.Physics.PhysicalQuantities.</p>
+<p>In addition, the module is the entry point for a package with various functions
+used in astrophysical calculations. The package structure is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ConstantsExtra</span>      <span class="o">-</span> <span class="n">extra</span> <span class="n">constants</span> <span class="ow">not</span> <span class="n">globally</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">module</span>
+<span class="n">Radiation</span>
+  <span class="n">Continuum</span>
+  <span class="n">Lines</span>             <span class="o">-</span> <span class="n">functions</span> <span class="ow">and</span> <span class="n">data</span> <span class="k">for</span> <span class="n">spectral</span> <span class="n">lines</span>
+    <span class="n">recomb_lines</span>    <span class="o">-</span> <span class="n">functions</span> <span class="ow">and</span> <span class="n">data</span> <span class="k">for</span> <span class="n">recombination</span> <span class="n">line</span> <span class="n">radiation</span>
+    <span class="n">Molec_Lines</span>     <span class="o">-</span> <span class="n">functions</span> <span class="k">for</span> <span class="n">molecular</span> <span class="n">line</span> <span class="n">radiation</span>
+      <span class="n">jpl_cat</span>       <span class="o">-</span> <span class="n">reading</span> <span class="ow">and</span> <span class="n">manipulating</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">JPL</span> <span class="n">Catalog</span>
+      <span class="n">quantum_label</span> <span class="o">-</span> <span class="n">decodes</span> <span class="n">the</span> <span class="n">quantum</span> <span class="n">numbers</span> <span class="ow">in</span> <span class="n">JPL</span> <span class="n">Catalog</span> <span class="nb">format</span>
+</pre></div>
+</div>
+<p>The global physical constants are in the Systeme Internationale
+based on Scientific.Physics.PhysicalQuantities
+but extended with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ke</span>
+</pre></div>
+</div>
+<p>These are defined as globals:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="p">,</span> <span class="n">fine</span> <span class="n">structure</span> <span class="n">constant</span><span class="p">,</span> <span class="n">e</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span> <span class="n">pi</span> <span class="n">eps_0</span> <span class="n">h_bar</span> <span class="n">c</span><span class="p">)</span>
+<span class="n">c</span><span class="p">,</span>     <span class="n">speed</span> <span class="n">of</span> <span class="n">light</span> <span class="ow">in</span> <span class="n">m</span><span class="o">/</span><span class="n">s</span>
+<span class="n">e</span><span class="p">,</span>     <span class="n">elementary</span> <span class="n">charge</span> <span class="ow">in</span> <span class="n">coulomb</span>
+<span class="n">eps_0</span><span class="p">,</span> <span class="n">vacuum</span> <span class="n">permittivity</span> <span class="p">(</span><span class="ow">or</span> <span class="n">electric</span> <span class="n">constant</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">mu_0</span> <span class="n">c</span><span class="o">^</span><span class="mi">2</span> <span class="ow">in</span> <span class="n">farad</span><span class="o">/</span><span class="n">m</span>
+<span class="n">eV</span><span class="p">,</span>    <span class="n">electron</span> <span class="n">volt</span><span class="p">,</span> <span class="n">J</span>
+<span class="n">G</span><span class="p">,</span>     <span class="n">Newtonian</span> <span class="n">constant</span><span class="p">,</span> <span class="n">m</span><span class="o">^</span><span class="mi">3</span> <span class="o">/</span><span class="n">kg</span> <span class="o">/</span> <span class="n">s</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">h</span><span class="p">,</span>     <span class="n">Planck</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span> <span class="n">s</span>
+<span class="n">h_bar</span><span class="p">,</span> <span class="n">Planck</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span> <span class="n">s</span>
+<span class="n">k</span><span class="p">,</span>     <span class="n">Boltzman</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span><span class="o">/</span><span class="n">K</span>
+<span class="n">k_e</span><span class="p">,</span>   <span class="n">Coulomb</span> <span class="n">constant</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span> <span class="n">pi</span> <span class="n">eps_0</span><span class="p">),</span> <span class="n">N</span> <span class="n">m</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="n">C</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">k_m</span><span class="p">,</span>   <span class="n">Ampere</span> <span class="n">constant</span>
+<span class="n">m_e</span><span class="p">,</span>   <span class="n">electron</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">kg</span>
+<span class="n">m_p</span><span class="p">,</span>   <span class="n">proton</span> <span class="n">mass</span>
+<span class="n">m_P</span><span class="p">,</span>   <span class="n">Planck</span> <span class="n">mass</span>
+<span class="n">m_u</span><span class="p">,</span>   <span class="n">mass</span> <span class="n">of</span> <span class="n">an</span> <span class="n">atomic</span> <span class="n">mass</span> <span class="n">unit</span><span class="p">,</span> <span class="n">kg</span>
+<span class="n">mu_0</span><span class="p">,</span>  <span class="n">vacuum</span> <span class="n">permittivity</span> <span class="ow">or</span> <span class="n">magnetic</span> <span class="n">constant</span><span class="p">,</span> <span class="mi">4</span> <span class="n">pi</span> <span class="mi">10</span><span class="o">^</span><span class="mi">7</span> <span class="n">N</span> <span class="n">A</span><span class="o">^-</span><span class="mi">2</span>
+<span class="n">Z_0</span><span class="p">,</span>   <span class="n">vacuum</span> <span class="n">impedance</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">mu0</span><span class="o">/</span><span class="n">eps_0</span><span class="p">),</span> <span class="n">ohm</span>
+</pre></div>
+</div>
+<p>The dictionary AMU provides the atomic mass for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">H</span><span class="p">,</span> <span class="n">He</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">Ne</span><span class="p">,</span> <span class="n">Na</span><span class="p">,</span> <span class="n">Xe</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Hg</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>A suggested way to use this module is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Physics</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>This defines ‘PQ’ as an alias for Scientific.Physics.PhysicalQuantities
+and ‘pq’ as an alias for PQ.PhysicalQuantity. pq is an object with a value
+and a combination of units. The physical quantity itself is a unit too.
+See ‘help(pq)’ for the documentation.  An example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">pq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">PhysicalQuantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">inBaseUnits</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">PhysicalQuantity</span><span class="p">(</span><span class="mf">299792458.0</span><span class="p">,</span><span class="s1">&#39;m/s&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">pq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">inUnitsOf</span><span class="p">(</span><span class="s1">&#39;cm/s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mf">29979245800.0</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">pq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">inUnitsOf</span><span class="p">(</span><span class="s1">&#39;mi/h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mf">670616629.38439512</span>
+</pre></div>
+</div>
+<p>The functions ‘sound_speed’ and ‘plasma_frequency’ are also defined here.</p>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.frequency.html#Physics.frequency" title="Physics.frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency</span></code></a>(wn)</p></td>
+<td><p>Frequency in Hz given the wavenumber in 1/m.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.plasma_frequency.html#Physics.plasma_frequency" title="Physics.plasma_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_frequency</span></code></a>(electron_density)</p></td>
+<td><p>Radial plasma frequency (rads/sec)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.sound_speed.html#Physics.sound_speed" title="Physics.sound_speed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sound_speed</span></code></a>(T, M)</p></td>
+<td><p>Sound speed in a gas</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.test.html#Physics.test" title="Physics.test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.wavelength.html#Physics.wavelength" title="Physics.wavelength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wavelength</span></code></a>(wn)</p></td>
+<td><p>wavelength in m given the wavenumber in 1/m</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.wavenumber.html#Physics.wavenumber" title="Physics.wavenumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wavenumber</span></code></a>(wvln)</p></td>
+<td><p>Wave number given the wavelength</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-Physics.Constants">
+<span id="physics-constants-package"></span><h2>Physics.Constants Package<a class="headerlink" href="#module-Physics.Constants" title="Permalink to this headline">¶</a></h2>
+<p>Basic physical constants and formula</p>
+<p>There is a module Scientific.Physics.PhysicalQuantities which,
+according to the documentation, should provide the physical
+constants with units.  However, I have not been able to find the
+constants, only tools for keeping track of units.</p>
+<p>So, from the 1998 compilation by the Committee on Data for
+Science and Engineering (CODATA) of the International Council of
+Scientific Unions (ICSU), this package provides
+Universal Constants:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">,</span>     <span class="n">speed</span> <span class="n">of</span> <span class="n">light</span> <span class="ow">in</span> <span class="n">m</span><span class="o">/</span><span class="n">s</span>
+<span class="n">eV</span><span class="p">,</span>    <span class="n">electron</span> <span class="n">volt</span><span class="p">,</span> <span class="n">J</span>
+<span class="n">mu_0</span><span class="p">,</span>  <span class="n">vacuum</span> <span class="n">permittivity</span> <span class="ow">or</span> <span class="n">magnetic</span> <span class="n">constant</span><span class="p">,</span> <span class="mi">4</span> <span class="n">pi</span> <span class="mi">10</span><span class="o">^</span><span class="mi">7</span> <span class="n">N</span> <span class="n">A</span><span class="o">^-</span><span class="mi">2</span>
+<span class="n">eps_0</span><span class="p">,</span> <span class="n">vacuum</span> <span class="n">permittivity</span> <span class="p">(</span><span class="ow">or</span> <span class="n">electric</span> <span class="n">constant</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">mu_0</span> <span class="n">c</span><span class="o">^</span><span class="mi">2</span> <span class="ow">in</span> <span class="n">farad</span><span class="o">/</span><span class="n">m</span>
+<span class="n">Z_0</span><span class="p">,</span>   <span class="n">vacuum</span> <span class="n">impedance</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">mu0</span><span class="o">/</span><span class="n">eps_0</span><span class="p">),</span> <span class="n">ohm</span>
+<span class="n">G</span><span class="p">,</span>     <span class="n">Newtonian</span> <span class="n">constant</span><span class="p">,</span> <span class="n">m</span><span class="o">^</span><span class="mi">3</span> <span class="o">/</span><span class="n">kg</span> <span class="o">/</span> <span class="n">s</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">k_e</span><span class="p">,</span>   <span class="n">Coulomb</span> <span class="n">constant</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span> <span class="n">pi</span> <span class="n">eps_0</span><span class="p">),</span> <span class="n">N</span> <span class="n">m</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="n">C</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">k</span><span class="p">,</span>     <span class="n">Boltzman</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span><span class="o">/</span><span class="n">K</span>
+</pre></div>
+</div>
+<p>Empirical Constants:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m_e</span><span class="p">,</span>   <span class="n">electron</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">kg</span>
+<span class="n">m_u</span><span class="p">,</span>   <span class="n">mass</span> <span class="n">of</span> <span class="n">an</span> <span class="n">atomic</span> <span class="n">mass</span> <span class="n">unit</span><span class="p">,</span> <span class="n">kg</span>
+<span class="n">e</span><span class="p">,</span>     <span class="n">elementary</span> <span class="n">charge</span> <span class="ow">in</span> <span class="n">coulomb</span>
+<span class="n">h</span><span class="p">,</span>     <span class="n">Planck</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span> <span class="n">s</span>
+<span class="n">h_bar</span><span class="p">,</span> <span class="n">Planck</span> <span class="n">constant</span><span class="p">,</span> <span class="n">J</span> <span class="n">s</span>
+<span class="n">m_p</span><span class="p">,</span>   <span class="n">Planck</span> <span class="n">mass</span><span class="p">,</span> <span class="n">kg</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">fine</span> <span class="n">structure</span> <span class="n">constant</span><span class="p">,</span> <span class="n">e</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span> <span class="n">pi</span> <span class="n">eps_0</span> <span class="n">h_bar</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The dictionary AMU provides the atomic mass for H, He, C, N, O,
+Ne, Na, Xe, and Hg.
+In addition, from Allen, Astrophysical Quantities:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pc</span><span class="p">,</span> <span class="n">parsec</span> <span class="ow">in</span> <span class="n">cm</span>
+</pre></div>
+</div>
+<p>The modules available here are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">continuum</span>    <span class="o">-</span> <span class="n">functions</span> <span class="n">relating</span> <span class="n">to</span> <span class="n">continuum</span> <span class="n">emission</span><span class="p">,</span>
+<span class="n">lines</span>        <span class="o">-</span> <span class="n">general</span> <span class="n">functions</span> <span class="k">for</span> <span class="n">line</span> <span class="n">emission</span>
+<span class="n">recomb_lines</span> <span class="o">-</span> <span class="n">function</span> <span class="n">relating</span> <span class="n">to</span> <span class="n">recombination</span> <span class="n">line</span> <span class="n">emission</span>
+<span class="n">jpl_cat</span>      <span class="o">-</span> <span class="n">functions</span> <span class="k">for</span> <span class="n">accessing</span> <span class="ow">and</span> <span class="n">decoding</span> <span class="n">the</span> <span class="n">JPL</span> <span class="n">Spectral</span> <span class="n">Line</span>
+               <span class="n">Catalog</span>
+<span class="n">molec_lines</span>  <span class="o">-</span> <span class="n">functions</span> <span class="k">for</span> <span class="n">molecular</span> <span class="n">line</span> <span class="n">emission</span>
+</pre></div>
+</div>
+<p>The module ‘radiation’ is obsolete and will be removed.</p>
+<div class="section" id="id1">
+<h3>Functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Constants.plasma_frequency.html#Physics.Constants.plasma_frequency" title="Physics.Constants.plasma_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma_frequency</span></code></a>(electron_density)</p></td>
+<td><p>returns plasma frequency in radians/sec given electron density in cm^{-3}</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Constants.sound_speed.html#Physics.Constants.sound_speed" title="Physics.Constants.sound_speed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sound_speed</span></code></a>(T, M[, f])</p></td>
+<td><p>sound speed for atomic particles</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-Physics.EE">
+<span id="physics-ee-module"></span><h2>Physics.EE Module<a class="headerlink" href="#module-Physics.EE" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Functions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.EE.skin_depth.html#Physics.EE.skin_depth" title="Physics.EE.skin_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skin_depth</span></code></a>(omega, rho[, mu, eps])</p></td>
+<td><p>Depth of the current layer in a conductor subject to AC fields.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.EE.skin_resistance.html#Physics.EE.skin_resistance" title="Physics.EE.skin_resistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skin_resistance</span></code></a>(freq, rho, diam)</p></td>
+<td><p>Resistance in a 1-m thin wire.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt</span></code></p></td>
+<td><p>Return the square root of x.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-Physics.Radiation">
+<span id="physics-radiation-package"></span><h2>Physics.Radiation Package<a class="headerlink" href="#module-Physics.Radiation" title="Permalink to this headline">¶</a></h2>
+<p>module Radiation</p>
+<p>This module contains functions related to emission mechanisms.</p>
+<div class="section" id="id3">
+<h3>Functions<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.E_upper.html#Physics.Radiation.E_upper" title="Physics.Radiation.E_upper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">E_upper</span></code></a>(E_lower, freq)</p></td>
+<td><p>Energy of the upper level of a transition</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.LTE_pop_ratio.html#Physics.Radiation.LTE_pop_ratio" title="Physics.Radiation.LTE_pop_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LTE_pop_ratio</span></code></a>(transition, temp[, degenerate])</p></td>
+<td><p>Given the transition data as a dictionary and a temperature in K, returns the LTE population ratio for the transition levels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.brightness_temperature.html#Physics.Radiation.brightness_temperature" title="Physics.Radiation.brightness_temperature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brightness_temperature</span></code></a>(source_function, …)</p></td>
+<td><p>Brightness temperature of a gas cloud</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.column_density.html#Physics.Radiation.column_density" title="Physics.Radiation.column_density"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_density</span></code></a>(freq, TaDv, g_up, Aul)</p></td>
+<td><p>Column density from an integrated spectral line</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.extinction_coefficient_CGS.html#Physics.Radiation.extinction_coefficient_CGS" title="Physics.Radiation.extinction_coefficient_CGS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extinction_coefficient_CGS</span></code></a>(n_u, pop_ratio, …)</p></td>
+<td><p>Extinction coefficient in CGS units</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.extinction_coefficient_MKS.html#Physics.Radiation.extinction_coefficient_MKS" title="Physics.Radiation.extinction_coefficient_MKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extinction_coefficient_MKS</span></code></a>(n_u, pop_ratio, …)</p></td>
+<td><p>Extinction coefficient in MKS units</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.get_partition_func.html#Physics.Radiation.get_partition_func" title="Physics.Radiation.get_partition_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_partition_func</span></code></a>(moltag, temps)</p></td>
+<td><p>Partition function from JPL catalog</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.n_upper_LTE.html#Physics.Radiation.n_upper_LTE" title="Physics.Radiation.n_upper_LTE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_upper_LTE</span></code></a>(n_species, transition, temp)</p></td>
+<td><p>Upper state population of a transition</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.optical_depth.html#Physics.Radiation.optical_depth" title="Physics.Radiation.optical_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optical_depth</span></code></a>(extinc_coef, path_length)</p></td>
+<td><p>Optical depth</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.source_function_K.html#Physics.Radiation.source_function_K" title="Physics.Radiation.source_function_K"><code class="xref py py-obj docutils literal notranslate"><span class="pre">source_function_K</span></code></a>(freq, population_ratio)</p></td>
+<td><p>Source function for a given population ratio and frequency</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-Physics.Radiation.Lines">
+<span id="physics-radiation-lines-package"></span><h2>Physics.Radiation.Lines Package<a class="headerlink" href="#module-Physics.Radiation.Lines" title="Permalink to this headline">¶</a></h2>
+<p>Molec -
+Package to support molecular line spectroscopy</p>
+<p>This uses two compilations, those at JPL in
+<a class="reference external" href="http://spec.jpl.nasa.gov">http://spec.jpl.nasa.gov</a>
+and those at the University of Cologne:
+<a class="reference external" href="http://www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml">http://www.astro.uni-koeln.de/site/vorhersagen/catalog/main_catalog.shtml</a></p>
+<p>In the JPL catalog, the hundreds digit of the molecule tag is 0.  In the
+Cologne catalog, it is 5.</p>
+<div class="section" id="id4">
+<h3>Functions<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.Lines.mol_file_basename.html#Physics.Radiation.Lines.mol_file_basename" title="Physics.Radiation.Lines.mol_file_basename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mol_file_basename</span></code></a>(tag)</p></td>
+<td><p>Covert a tag into a molecular data file name</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-Physics.Radiation.Lines.Molec">
+<span id="physics-radiation-lines-molec-package"></span><h2>Physics.Radiation.Lines.Molec Package<a class="headerlink" href="#module-Physics.Radiation.Lines.Molec" title="Permalink to this headline">¶</a></h2>
+<p>Molec - Package to support molecular line spectroscopy
+This provides support for the JPL Catalog at
+<a class="reference external" href="http://spec/jpl.nasa.gov">http://spec/jpl.nasa.gov</a>
+and the Cologne Database for Molecular Spectroscopy at
+<a class="reference external" href="http://www.astro.uni-koeln.de/site/vorhersagen/">http://www.astro.uni-koeln.de/site/vorhersagen/</a>
+Molecule tags with a 0 in the hundreds position are in the JPL catalog.
+Tags with a 5 in that position are in the Cologne catalog.</p>
+<p>Generally, both catalogs use the same way to encode line data.  The
+exception is for lines with the quantum number format code of 999.
+In the Cologne directory, the tags for these molecules are followed
+immediately by *. The Cologne catalog also appends the molecule name
+on each line.</p>
+<p class="rubric">References</p>
+<p>H. M. Pickett, R. L. Poynter, E. A. Cohen, M. L. Delitsky, J. C. Pearson,
+and H. S. P. Mueller,
+J. Quant. Spectrosc. Radiat. Transfer  60 (1998) 883 - 890.</p>
+<p>H. S. P. Mueller, F. Schloeder, J. Stutzki, and G. Winnewisser,
+J. Mol. Struct. 742, 215-227 (2005)</p>
+<p>H. S. P. Mueller, S. Thorwirth, D. A. Roth, and G. Winnewisser,
+Astronomy and Astrophysics 370, L49-L52 (2001)</p>
+<div class="section" id="id5">
+<h3>Functions<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.Lines.Molec.extract_lines.html#Physics.Radiation.Lines.Molec.extract_lines" title="Physics.Radiation.Lines.Molec.extract_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_lines</span></code></a>(molecule[, f_low, f_up])</p></td>
+<td><p>Extract all the lines in the specified frequency range.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.Lines.Molec.find_levels.html#Physics.Radiation.Lines.Molec.find_levels" title="Physics.Radiation.Lines.Molec.find_levels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_levels</span></code></a>(transitions[, key])</p></td>
+<td><p>This extracts energy levels from a list of transitions according to a key such as ‘q lower’ or ‘q upper’ or some other key.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Physics.Radiation.Lines.Molec.mol_file_basename.html#Physics.Radiation.Lines.Molec.mol_file_basename" title="Physics.Radiation.Lines.Molec.mol_file_basename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mol_file_basename</span></code></a>(tag)</p></td>
+<td><p>Convert a tag into a molecular data file name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/Physics.Radiation.Lines.Molec.open_molecule.html#Physics.Radiation.Lines.Molec.open_molecule" title="Physics.Radiation.Lines.Molec.open_molecule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_molecule</span></code></a>(code)</p></td>
+<td><p>Returns a file descriptor for the data file for the molecule with the specified code.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/Physics.frequency.html" title="frequency"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, T.B.H. Kuiper.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

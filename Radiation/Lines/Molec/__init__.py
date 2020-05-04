@@ -10,20 +10,24 @@ Tags with a 5 in that position are in the Cologne catalog.
 Generally, both catalogs use the same way to encode line data.  The
 exception is for lines with the quantum number format code of 999.
 In the Cologne directory, the tags for these molecules are followed
-immediately by *. The Cologne catalog also appends the molecule name
+immediately by \*. The Cologne catalog also appends the molecule name
 on each line.
 
-References::
-  H. M. Pickett, R. L. Poynter, E. A. Cohen, M. L. Delitsky, J. C. Pearson,
-    and H. S. P. Mueller,
-    J. Quant. Spectrosc. Radiat. Transfer  60 (1998) 883 - 890.
-  H. S. P. Mueller, F. Schloeder, J. Stutzki, and G. Winnewisser,
-    J. Mol. Struct. 742, 215-227 (2005)
-  H. S. P. Mueller, S. Thorwirth, D. A. Roth, and G. Winnewisser,
-    Astronomy and Astrophysics 370, L49-L52 (2001)
+References
+==========
+
+H. M. Pickett, R. L. Poynter, E. A. Cohen, M. L. Delitsky, J. C. Pearson,
+and H. S. P. Mueller,
+J. Quant. Spectrosc. Radiat. Transfer  60 (1998) 883 - 890.
+    
+H. S. P. Mueller, F. Schloeder, J. Stutzki, and G. Winnewisser,
+J. Mol. Struct. 742, 215-227 (2005)
+    
+H. S. P. Mueller, S. Thorwirth, D. A. Roth, and G. Winnewisser,
+Astronomy and Astrophysics 370, L49-L52 (2001)
 """
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import Physics as P
 import math as M
 from Physics.Radiation.Lines.Molec import koln
@@ -65,8 +69,8 @@ def open_molecule(code):
         mol_path = koln_url+filename
       else:
         return None
-      print mol_path
-      mol_fd = urllib.urlopen(mol_path)
+      print(mol_path)
+      mol_fd = urllib.request.urlopen(mol_path)
     return mol_fd
 
 def extract_lines(molecule,f_low=0,f_up=1000000):

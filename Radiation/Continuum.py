@@ -40,13 +40,13 @@ def BB_intensityPQ(T,f):
     """Physical quantity object for Blackbody radiation intensity,
     in W/m^2/Hz/rad^2, given physical quantity objects for f and T."""
     left_term = 2*P.pq(1,'hplanck')*f**3/P.pq(1,'c')**2
-    print "2 h f^3 / c^2 =", left_term.inBaseUnits()
-    print "h =", P.pq(1,'hplanck').inBaseUnits()
-    print "h f =",(P.pq(1,'hplanck')*f).inBaseUnits()
-    print "k =",P.pq(1,'k').inBaseUnits()
-    print "k T =", (P.pq(1,'k')*T).inBaseUnits()
+    print("2 h f^3 / c^2 =", left_term.inBaseUnits())
+    print("h =", P.pq(1,'hplanck').inBaseUnits())
+    print("h f =",(P.pq(1,'hplanck')*f).inBaseUnits())
+    print("k =",P.pq(1,'k').inBaseUnits())
+    print("k T =", (P.pq(1,'k')*T).inBaseUnits())
     exponent = (P.pq(1,'hplanck')*f)/(P.pq(1,'k')*T)
-    print "hf/kT =",exponent
+    print("hf/kT =",exponent)
     if exponent < 700:
       right_term = M.pow(M.e,exponent) - 1
       result = left_term/right_term

@@ -7,8 +7,8 @@ import logging
 import Physics as P
 import math as m
 import numpy as np
-from Lines.Molec import jpl
-from Lines.Molec import koln
+from .Lines.Molec import jpl
+from .Lines.Molec import koln
 
 logging.basicConfig(level=logging.WARNING)
 module_logger = logging.getLogger(__name__)
@@ -198,7 +198,7 @@ def get_partition_func(moltag, temps):
   """
   metadata = jpl.get_mol_metadata(moltag)
   log_Q = []
-  T = metadata[2].keys()
+  T = list(metadata[2].keys())
   T.sort()
   log_T = np.log10(T)
   for key in T:

@@ -9,7 +9,7 @@ instead of MHz.  For methanol, the intensity entry is
 log_10  (S mu^2 ) in D^2  and the quantum numbers have special meanings.
 """
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import operator
 
 cat_path = '/usr/local/line_cat/koln/'
@@ -73,15 +73,15 @@ def get_mol_metadata(tag):
       doc_file = open(cat_path+'partition_function.dat','r')
       doc_text = doc_file.readlines()[2:]
     except:
-      doc_file = urllib.urlopen(koln_url+'partition_function.html','r')
+      doc_file = urllib.request.urlopen(koln_url+'partition_function.html','r')
       doc_text = doc_file.readlines()[14:]
     doc_file.close()
     for line in doc_text:
-      print line
+      print(line)
       id = int(line[:6])
       name = line[7:30].strip()
       mol_data = line[31:].strip().split()
-      print mol_data
+      print(mol_data)
       if id == tag:
         n_lines = mol_data[0]
         partn_fn = {}
@@ -89,7 +89,7 @@ def get_mol_metadata(tag):
           partn_fn[q_temps[i]] = mol_data[3+i]
         break
     if name != '':
-      print name, n_lines, partn_fn
+      print(name, n_lines, partn_fn)
       return name, n_lines, partn_fn
     else:
       return 'none',0,{}

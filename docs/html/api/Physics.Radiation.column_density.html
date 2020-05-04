@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>column_density &#8212; Physics 0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="extinction_coefficient_CGS" href="Physics.Radiation.extinction_coefficient_CGS.html" />
+    <link rel="prev" title="brightness_temperature" href="Physics.Radiation.brightness_temperature.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.extinction_coefficient_CGS.html" title="extinction_coefficient_CGS"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.brightness_temperature.html" title="brightness_temperature"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Physics.Radiation.brightness_temperature.html"
+                        title="previous chapter">brightness_temperature</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Physics.Radiation.extinction_coefficient_CGS.html"
+                        title="next chapter">extinction_coefficient_CGS</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/Physics.Radiation.column_density.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="column-density">
+<h1>column_density<a class="headerlink" href="#column-density" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="Physics.Radiation.column_density">
+<code class="sig-prename descclassname">Physics.Radiation.</code><code class="sig-name descname">column_density</code><span class="sig-paren">(</span><em class="sig-param">freq</em>, <em class="sig-param">TaDv</em>, <em class="sig-param">g_up</em>, <em class="sig-param">Aul</em><span class="sig-paren">)</span><a class="headerlink" href="#Physics.Radiation.column_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column density from an integrated spectral line</p>
+<p>Given the line frequency, the integrated line intensity, the upper state
+degeneracy, and the Einstein A, returns the column density in cm**-2.</p>
+<p>:param freq : line frequrncy in MHz
+:type  freq : float</p>
+<p>:param TaDv : integrated line intensity in K-km/s
+:type  TaDv : float</p>
+<p>:param g_up : upper state degeneracy
+:type  g_up : int</p>
+<p>:param Aul : Einstein A
+:type  Aul : float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.extinction_coefficient_CGS.html" title="extinction_coefficient_CGS"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.brightness_temperature.html" title="brightness_temperature"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, T.B.H. Kuiper.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

@@ -18,13 +18,16 @@ def skin_depth(omega, rho, mu=mu_0, eps=eps_0):
   Depth of the current layer in a conductor subject to AC fields::
    J = J  exp(-d/delta)
         S
-   where J  is the surface current density and delta is the skin depth.
+   
+  where J  is the surface current density and delta is the skin depth::
           S
   
   Resistivity is defined so that the resistance of a bulk conductor is::
+  
        rho
    R = --- L
         A
+  
   where A is the cross-sectional area and L is the length.
   
   @param omega : angular frequency (rad/s)

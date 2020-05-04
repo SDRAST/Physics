@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>extinction_coefficient_MKS &#8212; Physics 0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="get_partition_func" href="Physics.Radiation.get_partition_func.html" />
+    <link rel="prev" title="extinction_coefficient_CGS" href="Physics.Radiation.extinction_coefficient_CGS.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.get_partition_func.html" title="get_partition_func"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.extinction_coefficient_CGS.html" title="extinction_coefficient_CGS"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Physics.Radiation.extinction_coefficient_CGS.html"
+                        title="previous chapter">extinction_coefficient_CGS</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Physics.Radiation.get_partition_func.html"
+                        title="next chapter">get_partition_func</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/Physics.Radiation.extinction_coefficient_MKS.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="extinction-coefficient-mks">
+<h1>extinction_coefficient_MKS<a class="headerlink" href="#extinction-coefficient-mks" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="Physics.Radiation.extinction_coefficient_MKS">
+<code class="sig-prename descclassname">Physics.Radiation.</code><code class="sig-name descname">extinction_coefficient_MKS</code><span class="sig-paren">(</span><em class="sig-param">n_u</em>, <em class="sig-param">pop_ratio</em>, <em class="sig-param">freq</em>, <em class="sig-param">Aul</em>, <em class="sig-param">dv</em><span class="sig-paren">)</span><a class="headerlink" href="#Physics.Radiation.extinction_coefficient_MKS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extinction coefficient in MKS units</p>
+<p>Given the upper and lower level degeneracies, the upper and lower degenerate
+sublevel populations, the transition frequency, the Einstein A and the
+linewidth, returns the extinction coefficient.</p>
+<p>:param n_u : upper degenerate sublevel population in cm^-3
+:type  n_u : float</p>
+<p>:param pop_ratio : n_u/n_l
+:type  pop_ratio : float</p>
+<p>:param freq : transition frequency in Hz
+:type  freq : float or int</p>
+<p>:param Aul : Einstein A in 1/s
+:type  Aul : float</p>
+<p>:param dv : linewidth in cm/s
+:type  dv : float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>float (1/m)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.get_partition_func.html" title="get_partition_func"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.extinction_coefficient_CGS.html" title="extinction_coefficient_CGS"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, T.B.H. Kuiper.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

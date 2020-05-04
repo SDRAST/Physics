@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>source_function_K &#8212; Physics 0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mol_file_basename" href="Physics.Radiation.Lines.mol_file_basename.html" />
+    <link rel="prev" title="optical_depth" href="Physics.Radiation.optical_depth.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.Lines.mol_file_basename.html" title="mol_file_basename"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.optical_depth.html" title="optical_depth"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Physics.Radiation.optical_depth.html"
+                        title="previous chapter">optical_depth</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Physics.Radiation.Lines.mol_file_basename.html"
+                        title="next chapter">mol_file_basename</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/Physics.Radiation.source_function_K.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="source-function-k">
+<h1>source_function_K<a class="headerlink" href="#source-function-k" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="Physics.Radiation.source_function_K">
+<code class="sig-prename descclassname">Physics.Radiation.</code><code class="sig-name descname">source_function_K</code><span class="sig-paren">(</span><em class="sig-param">freq</em>, <em class="sig-param">population_ratio</em><span class="sig-paren">)</span><a class="headerlink" href="#Physics.Radiation.source_function_K" title="Permalink to this definition">¶</a></dt>
+<dd><p>Source function for a given population ratio and frequency</p>
+<p>Given the ratio of the upper and lower populations per degenerate
+sublevel and the frequency of the transition, returns the Rayleigh-Jeans
+approximation of the source function in K.</p>
+<p>Note that the population ratio here is not the same as returned by
+LTE_pop_ratio.</p>
+<p>:param freq : frequency of the transition in Hz
+:type  freq : float or int</p>
+<p>:param population_ratio : (n_u/g_u)/(n_l/g_l)
+:type  population_ratio : float or rational fraction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.Lines.mol_file_basename.html" title="mol_file_basename"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Physics.Radiation.optical_depth.html" title="optical_depth"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Physics 0.9 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, T.B.H. Kuiper.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
